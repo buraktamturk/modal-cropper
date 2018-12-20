@@ -1,0 +1,20 @@
+{
+  "name": "modal-cropper",
+  "version": "1.0.0",
+  "description": "Promise-based, simplified, single-function library for very basic image crop operation on browser side and in modal.",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Burak Tamturk <buraktamturk@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/buraktamturk/modal-cropper.git"
+  },
+  "dependencies": {
+    "cropperjs": "^1.4.3",
+    "tingle.js": "^0.13.2"
+  }
+}
