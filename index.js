@@ -24,10 +24,6 @@
   }
 
   return function(file, width, height, type) {
-    if(type !== "jpg" && type !== "png") {
-      return Promise.reject(new Error("invalid image type: " + type));
-    }
-
     var ratio = width / height;
 
     var blob = URL.createObjectURL(file);
@@ -52,7 +48,7 @@
         onClose: function() {
           if(result) {
             resize_canvas(result, width, height)
-              .toBlob(resolve, type == "jpg" ? "image/jpeg" : "image.png", 1);
+              .toBlob(resolve, type == "jpg" ? "image/jpeg" : type == "png" ? "image/png" : type, 1);
           } else {
             resolve(null);
           }
