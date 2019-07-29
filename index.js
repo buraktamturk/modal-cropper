@@ -4,10 +4,24 @@
   } else if(typeof exports === 'object') {
     module.exports = factory(require('tingle.js'), require('cropperjs'));
   } else {
-    root.modal_cropper = factory(root.tingle, { default: root.cropperjs });
+    root.modal_cropper = factory(root.tingle, root.Cropper);
   }
 })(this, function(tingle, Cropper) {
   'use strict';
+
+  function resize_canvas(canvas, width, height) {
+    if(canvas.width <= width || canvas.height <= height)
+      return canvas;
+
+    var elem = document.createElement('canvas');
+    elem.width = width;
+    elem.height = height;
+
+    var ctx = elem.getContext('2d');
+    ctx.drawImage(canvas, 0, 0, width, height);
+
+    return elem;
+  }
 
   return function(file, width, height, type) {
     if(type !== "jpg" && type !== "png") {
@@ -30,14 +44,15 @@
         closeMethods: ['overlay', 'button', 'escape'],
         closeLabel: "Close",
         onOpen: function() {
-          cropper = new Cropper.default(image, {
+          cropper = new Cropper(image, {
             aspectRatio: ratio,
             viewMode: 2
           });
         },
         onClose: function() {
           if(result) {
-            result.toBlob(resolve, type == "jpg" ? "image/jpeg" : "image.png", 1);
+            resize_canvas(result, width, height)
+              .toBlob(resolve, type == "jpg" ? "image/jpeg" : "image.png", 1);
           } else {
             resolve(null);
           }
