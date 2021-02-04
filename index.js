@@ -28,7 +28,7 @@
 
     var blob = URL.createObjectURL(file);
     var image = document.createElement('img');
-    image.style.maxHeight = "500px";
+    image.style.maxWidth = '100%';
     image.src = blob;
 
     return new Promise(function(resolve) { 
@@ -36,7 +36,7 @@
 
       var modal = new tingle.modal({
         footer: true,
-        stickyFooter: false,
+        stickyFooter: true,
         closeMethods: ['overlay', 'button', 'escape'],
         closeLabel: "Close",
         onOpen: function() {
@@ -69,12 +69,12 @@
       modal.setContent(div);
 
       modal.addFooterBtn('Cancel', 'tingle-btn tingle-btn--danger', function() {
-        modal.close();
+        modal.destroy();
       });
 
       modal.addFooterBtn('Crop', 'tingle-btn tingle-btn--primary', function() {
         done = 1;
-        modal.close();
+        modal.destroy();
       });
 
       modal.open();
