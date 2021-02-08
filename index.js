@@ -9,8 +9,8 @@
 })(this, function(tingle, Cropper) {
   'use strict';
 
-  function resize_canvas(canvas, width, height) {
-    if(canvas.width <= width || canvas.height <= height)
+  function resize_canvas(canvas, width, height, exact) {
+    if(!exact && (canvas.width <= width || canvas.height <= height))
       return canvas;
 
     var elem = document.createElement('canvas');
@@ -23,7 +23,7 @@
     return elem;
   }
 
-  return function(file, width, height, type) {
+  return function(file, width, height, type, exact) {
     var ratio = width / height;
 
     var blob = URL.createObjectURL(file);
@@ -47,7 +47,7 @@
         },
         onClose: function() {
           if(result) {
-            resize_canvas(result, width, height)
+            resize_canvas(result, width, height, exact)
               .toBlob(resolve, type == "jpg" ? "image/jpeg" : type == "png" ? "image/png" : type, 1);
           } else {
             resolve(null);
