@@ -36,7 +36,7 @@
 
       var modal = new tingle.modal({
         footer: true,
-        stickyFooter: true,
+        stickyFooter: false,
         closeMethods: ['overlay', 'button', 'escape'],
         closeLabel: "Close",
         onOpen: function() {
